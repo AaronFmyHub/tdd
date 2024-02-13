@@ -53,3 +53,13 @@ class CounterTest(TestCase):
         returned = self.client.put('/counters/read')
         returned = self.client.get('/counters/read')
         self.assertEqual(returned.status_code, status.HTTP_200_OK)
+
+    def test_delete__a_counter(self):
+        self.setUp()
+        returned = self.client.post('/counters/delete')
+        returned = self.client.delete('/counters/delete')
+        self.assertEqual(returned.status_code, status.HTTP_204_NO_CONTENT)
+        # if content deleted, can creat a new one using post
+        # check name not in COUNTERS, so no conflict code returned
+        tmp = self.client.post('/counters/delete')
+        self.assertNotEqual(tmp.status_code, status.HTTP_409_CONFLICT)
