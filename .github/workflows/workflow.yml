@@ -1,8 +1,11 @@
 name: CI workflow
 
 on:
-  push: "main"
-  pull_request: "main"
+  push:
+    branches:
+      - "main"
+    pull_request:
+      - "main"
 
 jobs:
   build:
